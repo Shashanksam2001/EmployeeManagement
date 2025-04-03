@@ -16,26 +16,22 @@ public class JobImplementation implements JobService {
 
 	@Override
 	public Job createJob(Job job) {
-		// TODO Auto-generated method stub
 		return jobRepo.save(job);
 	}
 
 	@Override
 	public List<Job> getAllJobs() {
-		
 		return jobRepo.findAll();
 	}
 
 	@Override
 	public Optional<Job> getJobById(int id) {
-		// TODO Auto-generated method stub
 		Optional<Job> byid=jobRepo.findById(id);
 		return byid;
 	}
 
 	@Override
 	public Optional<Job> updateJob(int id, Job job) {
-		// TODO Auto-generated method stub
 		return jobRepo.findById(id).map(existingJob -> {
 	        existingJob.setTitle(job.getTitle());
 	        existingJob.setDescription(job.getDescription());
@@ -47,13 +43,25 @@ public class JobImplementation implements JobService {
 
 	@Override
 	public String deleteJob(int id) {
-		// TODO Auto-generated method stub
 		if(jobRepo.findById(id).isPresent()) {
+			jobRepo.deleteById(id);
 			return "Deleted";
 		}else {
 			return "Id not present";
 		}
-		
+	}
+
+	@Override
+	public String saveAll(List<Job> jobs) {
+		try {
+            if (jobs == null || jobs.isEmpty()) {
+                return "Job list cannot be empty";
+            }
+            jobRepo.saveAll(jobs);
+            return "Jobs added successfully";
+        } catch (Exception e) {
+            throw new RuntimeException("Error saving jobs: " + e.getMessage());
+        }
 		
 	}
 

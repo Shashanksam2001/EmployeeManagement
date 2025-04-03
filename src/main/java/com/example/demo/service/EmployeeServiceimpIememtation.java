@@ -20,13 +20,6 @@ public class EmployeeServiceimpIememtation implements EmployeeService {
 		  if (employee.getDepartment() == null ) {
 	            throw new RuntimeException("Department ID is required.");
 	        }
-
-//	        // Fetch the department from the database
-//	        Department department = DepartmentRepo.findById(employee.getDepartment().getId())
-//	            .orElseThrow(() -> new RuntimeException("Department not found"));
-//
-//	        employee.setDepartment(department); // Set the persistent entity
-
 	        return employeeRepo.save(employee);
 	}
 
@@ -61,6 +54,20 @@ public class EmployeeServiceimpIememtation implements EmployeeService {
 			employee.setSalary(updatedEmployee.getSalary());
 			return employeeRepo.save(employee);
 		});
+	}
+
+	@Override
+	public String saveAll(List<Employee> employee) {
+		try {
+            if (employee == null || employee.isEmpty()) {
+                return "employee list cannot be empty";
+            }
+            employeeRepo.saveAll(employee);
+            return "employee added successfully";
+        } catch (Exception e) {
+            throw new RuntimeException("Error saving jobs: " + e.getMessage());
+        }
+		
 	}
 
 }

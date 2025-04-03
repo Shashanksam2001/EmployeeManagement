@@ -25,7 +25,6 @@ public class DepartmentImplementation implements DepartmentService {
 
 	@Override
 	public Optional<Department> getDepartmentByid(int id) {
-		// TODO Auto-generated method stub
 		Optional<Department> dep1=departmentRepo.findById(id);
 		return  dep1;
 	}
@@ -41,9 +40,18 @@ public class DepartmentImplementation implements DepartmentService {
 
 	@Override
 	public String deleteDepartment(int id) {
-		// TODO Auto-generated method stub
 		departmentRepo.deleteById(id);
 		return "Successfully deleted"+id;
+	}
+
+	@Override
+	public String saveAll(List<Department> department) {
+		if(department==null||department.isEmpty()) {
+			return "Department list cannot be empty";
+		}else {
+			departmentRepo.saveAll(department);
+			return "Department added successfully";
+		}
 	}
 
 }

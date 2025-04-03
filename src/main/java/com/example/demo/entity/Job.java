@@ -12,8 +12,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-
-@Table(name = "jobs")
+@Table(name = "job")
 public class Job {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,8 +32,11 @@ public class Job {
 
     @OneToMany(mappedBy = "job", cascade = CascadeType.ALL)
     private List<Employee> employees;
-	public Job() {
-		super();
+
+	@Override
+	public String toString() {
+		return "Job [id=" + id + ", title=" + title + ", description=" + description + ", minSalary=" + minSalary
+				+ ", maxSalary=" + maxSalary + ", employees=" + employees + "]";
 	}
 
 	public Job(int id, String title, String description, double minSalary, double maxSalary, List<Employee> employees) {
@@ -45,12 +47,6 @@ public class Job {
 		this.minSalary = minSalary;
 		this.maxSalary = maxSalary;
 		this.employees = employees;
-	}
-
-	@Override
-	public String toString() {
-		return "Job [id=" + id + ", title=" + title + ", description=" + description + ", minSalary=" + minSalary
-				+ ", maxSalary=" + maxSalary + ", employees=" + employees + "]";
 	}
 
 	public int getId() {
@@ -101,6 +97,11 @@ public class Job {
 		this.employees = employees;
 	}
 
+	public Job() {
+		super();
+	}
+    
+	
 	
 
 }

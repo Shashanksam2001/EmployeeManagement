@@ -32,6 +32,17 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.AddNewEmployee(employee));
     }
 	
+	//AddLsit of Employees
+	@PostMapping("/add")
+	public ResponseEntity<String> addlist(@RequestBody List<Employee> employee){
+		String result=employeeService.saveAll(employee);
+		if("employee list cannot be empty".equals(result)) {
+			return ResponseEntity.badRequest().body(result);
+		}else {
+			return ResponseEntity.ok(result);
+		}
+	}
+	
 	//Get By id
 	@GetMapping(("/{id}"))
 	public ResponseEntity<Employee> GetByid(@PathVariable int id){
@@ -40,7 +51,7 @@ public class EmployeeController {
 	}
 	
 	//Get all Employees
-	@GetMapping("/AllEmployees")
+	@GetMapping("/all")
 	public ResponseEntity<List<Employee>> GetAllEmployees(){
 		return ResponseEntity.ok(employeeService.getAllEmployees()); 
 	}

@@ -11,6 +11,7 @@ public interface DepartmentService {
 	Optional<Department> getDepartmentByid(int id);
 	Optional<Department> updateDepaertment(int id,Department department);
 	String deleteDepartment(int id);
+	String saveAll(List<Department> department);
 
 
 }

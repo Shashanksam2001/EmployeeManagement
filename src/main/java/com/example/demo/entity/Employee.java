@@ -12,7 +12,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name = "employees")
+@Table(name = "employee")
 public class Employee {
 	@Id
     private int id;
@@ -39,6 +39,10 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
+    
+    @ManyToOne
+    @JoinColumn(name = "job_id", nullable = false)
+    private Job job;
     	
     
   @Override
@@ -159,8 +163,6 @@ public int getId() {
 	}
 
 
-@ManyToOne
-  @JoinColumn(name = "job_id", nullable = false)
-    private Job job;
+
 	
 }
